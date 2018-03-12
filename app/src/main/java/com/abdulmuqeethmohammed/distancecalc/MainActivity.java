@@ -10,19 +10,25 @@ import android.widget.Toast;
 
 public class MainActivity extends AppCompatActivity {
 
-    private EditText coordinate1;
-    private EditText coordinate2;
+    private EditText latitude1;
+    private EditText latitude2;
+    private EditText longitude1;
+    private EditText longitude2;
     private Button goButton;
-    private String loc1;
-    private String loc2;
+    private String lat1;
+    private String lat2;
+    private String long1;
+    private String long2;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
 
-        coordinate1 = (EditText) findViewById(R.id.coordinate1);
-        coordinate2 = (EditText) findViewById(R.id.coordinate2);
+        latitude1 = (EditText) findViewById(R.id.latitude1);
+        latitude2 = (EditText) findViewById(R.id.latitude2);
+        longitude1 = (EditText) findViewById(R.id.longitude1);
+        longitude2 = (EditText) findViewById(R.id.longitude2);
 
         goButton = (Button) findViewById(R.id.goButton);
 
@@ -32,18 +38,22 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener goOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
-            loc1 = coordinate1.getText().toString();
-            loc2 = coordinate2.getText().toString();
+            lat1 = latitude1.getText().toString();
+            lat2 = latitude2.getText().toString();
+            long1 = longitude1.getText().toString();
+            long2 = longitude2.getText().toString();
 
             Intent calcIntent = new Intent(MainActivity.this, DistanceActivity.class);
 
-            if(!loc1.isEmpty() && !loc2.isEmpty()){
-                calcIntent.putExtra("loc1", loc1);
-                calcIntent.putExtra("loc2", loc2);
+            if(!lat1.isEmpty() && !lat2.isEmpty() && !long2.isEmpty() && !long2.isEmpty()){
+                calcIntent.putExtra("lat1", lat1);
+                calcIntent.putExtra("long1", long1);
+                calcIntent.putExtra("lat2", lat2);
+                calcIntent.putExtra("long2", long2);
                 startActivity(calcIntent);
             }
             else{
-                Toast.makeText(getApplicationContext(), "Please enter the coordinates", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please enter the coordinates correctly", Toast.LENGTH_SHORT).show();
             }
         }
     };

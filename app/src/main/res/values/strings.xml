@@ -6,4 +6,6 @@
     <string name="driv_text_view1">Euclidean Distance</string>
     <string name="driv_text_view2">Driving Distance</string>
     <string name="try_again">Try Again</string>
+    <string name="hint_lat">lat</string>
+    <string name="hint_long">long</string>
 </resources>
