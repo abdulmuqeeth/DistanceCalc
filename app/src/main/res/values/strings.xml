@@ -3,4 +3,7 @@
     <string name="text_view1">Enter First Coordinate</string>
     <string name="text_view2">Enter Second Coordinate</string>
     <string name="button1">Go</string>
+    <string name="driv_text_view1">Euclidean Distance</string>
+    <string name="driv_text_view2">Driving Distance</string>
+    <string name="try_again">Try Again</string>
 </resources>
