@@ -28,7 +28,7 @@
         android:textSize="20sp"
         android:hint="@string/hint_lat"
         android:ems="10"
-        android:inputType="numberDecimal" />
+        android:inputType="numberSigned|numberDecimal" />
 
         <EditText
             android:id="@+id/longitude1"
@@ -38,7 +38,7 @@
             android:textSize="20sp"
             android:hint="@string/hint_long"
             android:ems="10"
-            android:inputType="numberDecimal" />
+            android:inputType="numberSigned|numberDecimal" />
 
     </LinearLayout>
 
@@ -64,7 +64,7 @@
             android:textSize="20sp"
             android:hint="@string/hint_lat"
             android:ems="10"
-            android:inputType="numberDecimal" />
+            android:inputType="numberSigned|numberDecimal"/>
 
         <EditText
             android:id="@+id/longitude2"
@@ -74,7 +74,7 @@
             android:textSize="20sp"
             android:hint="@string/hint_long"
             android:ems="10"
-            android:inputType="numberDecimal" />
+            android:inputType="numberSigned|numberDecimal" />
 
     </LinearLayout>
 
