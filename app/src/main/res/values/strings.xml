@@ -8,4 +8,6 @@
     <string name="try_again">Try Again</string>
     <string name="hint_lat">lat</string>
     <string name="hint_long">long</string>
+    <string name="apikey">AIzaSyCOAgCY8CE43jFXVCqhpTLPiMu5k4CtvTg</string>
+    <string name="base_url">"https://maps.googleapis.com/maps/api/distancematrix/"</string>
 </resources>

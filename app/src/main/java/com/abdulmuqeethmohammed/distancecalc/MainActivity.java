@@ -33,6 +33,7 @@ public class MainActivity extends AppCompatActivity {
         goButton = (Button) findViewById(R.id.goButton);
 
         goButton.setOnClickListener(goOnClick);
+
     }
 
     private View.OnClickListener goOnClick = new View.OnClickListener() {
@@ -43,18 +44,37 @@ public class MainActivity extends AppCompatActivity {
             long1 = longitude1.getText().toString();
             long2 = longitude2.getText().toString();
 
+            String query = getResources().getString(R.string.base_url)+"json?units=imperial&origins="+lat1+","+long1+"&destinations="+lat2+","+long2+"&key="+getResources().getString(R.string.apikey);
+
+
             Intent calcIntent = new Intent(MainActivity.this, DistanceActivity.class);
 
             if(!lat1.isEmpty() && !lat2.isEmpty() && !long2.isEmpty() && !long2.isEmpty()){
-                calcIntent.putExtra("lat1", lat1);
-                calcIntent.putExtra("long1", long1);
-                calcIntent.putExtra("lat2", lat2);
-                calcIntent.putExtra("long2", long2);
-                startActivity(calcIntent);
+
+                if(!(valueCheck(lat1) && valueCheck(lat2) && valueCheck(long1) && valueCheck(long2))){
+                    Toast.makeText(getApplicationContext(), "The values should be between -180 and 180", Toast.LENGTH_SHORT).show();
+                }
+                else {
+                    calcIntent.putExtra("lat1", lat1);
+                    calcIntent.putExtra("long1", long1);
+                    calcIntent.putExtra("lat2", lat2);
+                    calcIntent.putExtra("long2", long2);
+
+                    //Making call to distance matrix API
+                    new APIQuery().execute(query);
+
+                    startActivity(calcIntent);
+                }
             }
             else{
-                Toast.makeText(getApplicationContext(), "Please enter the coordinates correctly", Toast.LENGTH_SHORT).show();
+                Toast.makeText(getApplicationContext(), "Please enter all the coordinates", Toast.LENGTH_SHORT).show();
             }
         }
     };
+
+    //Method to valueCheck if the latitude and longitude values fall between -180 and 180
+    private boolean valueCheck(String s) {
+
+        return (!(Float.parseFloat(s) > 180 || Float.parseFloat(s) < -180));
+    }
 }
