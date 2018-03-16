@@ -1,8 +1,13 @@
 package com.abdulmuqeethmohammed.distancecalc;
 
 import android.os.AsyncTask;
-import android.util.Log;
+
+import org.json.JSONException;
+import org.json.JSONObject;
+
+import java.io.BufferedReader;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.net.HttpURLConnection;
 import java.net.URL;
 
@@ -15,20 +20,48 @@ public class APIQuery extends AsyncTask<String, String, String> {
 
     @Override
     protected String doInBackground(String... strings) {
-        Log.i("APICall", "Inside");
 
         try {
             URL url = new URL(strings[0]);
 
             HttpURLConnection connection = (HttpURLConnection) url.openConnection();
 
-            Log.i("Connection Response", connection.getResponseMessage());
-        } catch (IOException e) {
-            Log.i("Exception", "In doInBackground");
-        }
+            connection.setRequestMethod("GET");
+
+            int responseCode = connection.getResponseCode();
+
+            BufferedReader inputBuffer = new BufferedReader(new InputStreamReader(connection.getInputStream()));
+
+            String inputLine;
+
+            StringBuffer response = new StringBuffer();
+
+            while((inputLine=inputBuffer.readLine())!=null){
+
+                response.append(inputLine);
+            }
+
+            inputBuffer.close();
+
+            statusParse(response);
+
+        } catch (IOException e) {}
 
         return null;
     }
+
+    //This method is used to parse the JSON response
+    private String statusParse(StringBuffer response){
+        String status=null;
+        try{
+            JSONObject responseJSON = new JSONObject(response.toString());
+
+            status = responseJSON.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(0).getString("status");
+        } catch (JSONException e){}
+
+        return status;
+    }
 }
+
 
 
