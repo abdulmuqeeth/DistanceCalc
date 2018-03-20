@@ -1,10 +1,8 @@
 package com.abdulmuqeethmohammed.distancecalc;
 
 import android.os.AsyncTask;
-
 import org.json.JSONException;
 import org.json.JSONObject;
-
 import java.io.BufferedReader;
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -44,6 +42,7 @@ public class APIQuery extends AsyncTask<String, String, String> {
             inputBuffer.close();
 
             statusParse(response);
+            distanceParse(response);
 
         } catch (IOException e) {}
 
@@ -52,7 +51,8 @@ public class APIQuery extends AsyncTask<String, String, String> {
 
     //This method is used to parse the JSON response
     private String statusParse(StringBuffer response){
-        String status=null;
+        String status = null;
+
         try{
             JSONObject responseJSON = new JSONObject(response.toString());
 
@@ -60,6 +60,19 @@ public class APIQuery extends AsyncTask<String, String, String> {
         } catch (JSONException e){}
 
         return status;
+    }
+    //Method to parse driving distance from the json response
+    private String distanceParse(StringBuffer response) {
+        String distance = null;
+
+        try{
+            JSONObject responseJSON = new JSONObject(response.toString());
+
+            JSONObject distanceObject = new JSONObject(responseJSON.getJSONArray("rows").getJSONObject(0).getJSONArray("elements").getJSONObject(0).getString("distance"));
+            distance = distanceObject.getString("text");
+        } catch (JSONException e){}
+
+        return distance;
     }
 }
 
