@@ -19,6 +19,8 @@ public class APIQuery extends AsyncTask<String, String, String> {
     @Override
     protected String doInBackground(String... strings) {
 
+        String result = null;
+
         try {
             URL url = new URL(strings[0]);
 
@@ -41,12 +43,15 @@ public class APIQuery extends AsyncTask<String, String, String> {
 
             inputBuffer.close();
 
-            statusParse(response);
-            distanceParse(response);
+            result = statusParse(response);
+
+            if(!( result.equals("ZERO_RESULTS") || result.equals("NOT_FOUND" ))){
+                result = distanceParse(response);
+            }
 
         } catch (IOException e) {}
 
-        return null;
+        return result;
     }
 
     //This method is used to parse the JSON response

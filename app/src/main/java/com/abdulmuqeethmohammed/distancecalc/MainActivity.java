@@ -8,6 +8,8 @@ import android.widget.Button;
 import android.widget.EditText;
 import android.widget.Toast;
 
+import java.util.concurrent.ExecutionException;
+
 public class MainActivity extends AppCompatActivity {
 
     private EditText latitude1;
@@ -39,13 +41,14 @@ public class MainActivity extends AppCompatActivity {
     private View.OnClickListener goOnClick = new View.OnClickListener() {
         @Override
         public void onClick(View v) {
+            String result;
+
             lat1 = latitude1.getText().toString();
             lat2 = latitude2.getText().toString();
             long1 = longitude1.getText().toString();
             long2 = longitude2.getText().toString();
 
             String query = getResources().getString(R.string.base_url)+"json?units=imperial&origins="+lat1+","+long1+"&destinations="+lat2+","+long2+"&key="+getResources().getString(R.string.apikey);
-
 
             Intent calcIntent = new Intent(MainActivity.this, DistanceActivity.class);
 
@@ -61,7 +64,10 @@ public class MainActivity extends AppCompatActivity {
                     calcIntent.putExtra("long2", long2);
 
                     //Making call to distance matrix API
-                    new APIQuery().execute(query);
+                    try {
+                        result = new APIQuery().execute(query).get();
+                        calcIntent.putExtra("driving_distance", result);
+                    }catch (InterruptedException | ExecutionException e) {}
 
                     startActivity(calcIntent);
                 }
