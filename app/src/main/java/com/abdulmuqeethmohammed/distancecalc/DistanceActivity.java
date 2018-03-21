@@ -14,6 +14,7 @@ public class DistanceActivity extends AppCompatActivity {
     private double long2;
 
     private TextView geoDist;
+    private TextView drivDist;
 
     private Location loc1;
     private Location loc2;
@@ -30,7 +31,9 @@ public class DistanceActivity extends AppCompatActivity {
         long2= Double.parseDouble(retrievedIntent.getStringExtra("long2"));
 
         geoDist = (TextView) findViewById(R.id.eucDistVal);
+        drivDist = (TextView) findViewById(R.id.drivDistVal);
 
+        drivDist.setText(retrievedIntent.getStringExtra("driving_distance"));
         geoDistCalc(lat1, long1, lat2, long2);
 
     }
