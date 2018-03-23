@@ -4,6 +4,8 @@ import android.content.Intent;
 import android.location.Location;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.view.View;
+import android.widget.Button;
 import android.widget.TextView;
 
 public class DistanceActivity extends AppCompatActivity {
@@ -18,6 +20,8 @@ public class DistanceActivity extends AppCompatActivity {
 
     private Location loc1;
     private Location loc2;
+
+    private Button tryAgain;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -35,6 +39,10 @@ public class DistanceActivity extends AppCompatActivity {
 
         drivDist.setText(retrievedIntent.getStringExtra("driving_distance"));
         geoDistCalc(lat1, long1, lat2, long2);
+
+        tryAgain = (Button) findViewById(R.id.tryAgainButton);
+
+        tryAgain.setOnClickListener(tryAgainListener);
 
     }
 
@@ -55,4 +63,12 @@ public class DistanceActivity extends AppCompatActivity {
         float a = loc1.distanceTo(loc2);
         geoDist.setText (Float.toString(a/1000));
     }
+
+    View.OnClickListener tryAgainListener = new View.OnClickListener() {
+        @Override
+        public void onClick(View v) {
+            Intent i = new Intent(DistanceActivity.this, MainActivity.class);
+            startActivity(i);
+        }
+    };
 }

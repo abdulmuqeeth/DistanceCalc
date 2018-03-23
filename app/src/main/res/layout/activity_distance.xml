@@ -61,7 +61,7 @@
         android:layout_height="48sp">
 
         <Button
-            android:id="@+id/goButton"
+            android:id="@+id/tryAgainButton"
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:text="@string/try_again"
